@@ -2,7 +2,7 @@
 
 An interactive data visualization that deconstructs the scent profiles of perfume brands. It displays the structure of a brand's fragrances as a "bottle" and its main accords as a surrounding "scent cloud".
 
-**[Live Demo]([https://Your-Username.github.io/Your-Repo-Name/](https://xphoenixua.github.io/scent-dna/))**
+**[Live Demo](https://xphoenixua.github.io/scent-dna/)**
 
 ## Concepts
 
