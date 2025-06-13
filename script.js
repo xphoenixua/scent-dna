@@ -96,30 +96,49 @@ function getBrandScentProfile(df, brandName, topNNotes = 4, topNAccords = 5) {
 
 
 function drawStackedSegments(selection, data, totalHeight, width, colorScale) {
-    let yOffset = 0;
+    let currentY = 0;
+    data.forEach(d => {
+        d.yPos = currentY;
+        currentY += (d.percentage / 100) * totalHeight;
+    });
 
-    const segments = selection.selectAll("g.segment-group").data(data, d => d.id);
+    const segments = selection.selectAll("g.segment-group")
+        .data(data, d => d.id);
 
-    segments.exit().transition().duration(TRANSITION_DURATION)
-        .attr("transform", `translate(0, ${vizHeight})`).style("opacity", 0).remove();
+    segments.exit()
+        .transition().duration(TRANSITION_DURATION)
+        .attr("transform", `translate(0, ${vizHeight})`)
+        .style("opacity", 0)
+        .remove();
 
-    const enterG = segments.enter().append("g")
-        .attr("class", "segment-group").attr("transform", `translate(0, ${vizHeight})`);
+    const enterG = segments.enter()
+        .append("g")
+        .attr("class", "segment-group")
+        .attr("transform", `translate(0, ${vizHeight})`);
 
-    enterG.append("rect").attr("class", "segment-outline").attr("width", width).attr("fill", d => colorScale(d.label));
-    enterG.append("text").attr("class", "segment-label").attr("x", width / 2).attr("text-anchor", "middle").attr("dy", "0.35em");
+    enterG.append("rect")
+        .attr("class", "segment-outline")
+        .attr("width", width)
+        .attr("fill", d => colorScale(d.label));
+
+    enterG.append("text")
+        .attr("class", "segment-label")
+        .attr("x", width / 2)
+        .attr("text-anchor", "middle")
+        .attr("dy", "0.35em");
 
     const updateG = enterG.merge(segments);
     
-    updateG.transition().duration(TRANSITION_DURATION).attr("transform", d => {
-        const yPos = yOffset;
-        const segHeight = (d.percentage / 100) * totalHeight;
-        yOffset += segHeight;
-        return `translate(0, ${yPos})`;
-    });
+    updateG.transition().duration(TRANSITION_DURATION)
+        .attr("transform", d => `translate(0, ${d.yPos})`);
 
-    updateG.select("rect").transition().duration(TRANSITION_DURATION).attr("height", d => (d.percentage / 100) * totalHeight);
-    updateG.select("text").transition().duration(TRANSITION_DURATION).attr("y", d => ((d.percentage / 100) * totalHeight) / 2)
+    updateG.select("rect")
+        .transition().duration(TRANSITION_DURATION)
+        .attr("height", d => (d.percentage / 100) * totalHeight);
+
+    updateG.select("text")
+        .transition().duration(TRANSITION_DURATION)
+        .attr("y", d => ((d.percentage / 100) * totalHeight) / 2)
         .text(d => {
             const segHeight = (d.percentage / 100) * totalHeight;
             if (segHeight < TEXT_VISIBILITY_THRESHOLD_PX) return "";
