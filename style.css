@@ -1,0 +1,99 @@
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fdfcfb;
+    color: #4a4a4a;
+}
+
+#main-container {
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.controls {
+    margin-bottom: 2rem;
+}
+
+.controls label {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+#brand-dropdown {
+    padding: 0.5rem 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+#visualization-container {
+    margin: 0 auto;
+}
+
+/* d3 visualization styles */
+.viz-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    fill: #333;
+}
+
+.section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    fill: #6c757d;
+}
+
+.segment-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    fill: #333;
+    pointer-events: none;
+}
+
+.segment-outline {
+    stroke: rgba(255, 255, 255, 0.9);
+    stroke-width: 0.5px;
+}
+
+/* dynamic tooltip styles */
+.tooltip {
+    position: absolute;
+    text-align: left;
+    padding: 0.6rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+    transition: opacity 0.2s;
+    opacity: 0;
+}
+
+.tooltip-type {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #333;
+}
